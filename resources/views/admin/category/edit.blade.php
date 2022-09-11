@@ -5,13 +5,14 @@
         <div class="col-md-12">
             <div class="card-header">
                 <h3 class="text-success">Edit Categories
-                    <a href="{{ url('admin/category/') }}" class="btn btn-success btn-sm float-end">Back</a>
+                    <a href="{{ url('admin/category') }}" class="btn btn-danger btn-sm float-end">Back</a>
                     {{-- Revert category --}}
                 </h3>
             </div>
             <div class="card-body bg-gray">
-                <form action="{{ url('admin/category') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('admin/category/'.$category->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')<!--Update the data into the database-->
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="border border-primary p-5">
                         <div class="row mb-4">
@@ -42,17 +43,17 @@
                             <div class="col-md-6 mb-3  ">
                                 <label class="form-label">Image</label>
                                 <input type="file" name="image" class="form-control" /> 
-                                <img src=" {{ asset('upload/category'.$category->image) }} " width="150px" height="150px">
+                                <img src=" {{ asset('uploads/category/'.$category->image) }} " class="mt-2" width="150px" height="150px">
                                 @error('image') <small class="text-danger">{{$message}}</small>@enderror
                           
                             </div>
                             <div class="col-md-6 mb-3  ">
                                 <label class="form-label">Status</label>
-                                <input type="checkbox" name="status"/>                           
+                                <input type="checkbox" name="status" {{$category->status == '1' ? 'checked':''}} />                           
                             </div>
                         </div> 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                        <button type="submit" class="btn btn-outline-primary btn-block">Update</button>
                     </div>
                 </form>
             </div>

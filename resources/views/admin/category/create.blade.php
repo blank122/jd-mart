@@ -51,7 +51,7 @@
                             </div>
                         </div> 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                        <button type="submit" class="btn btn-outline-primary btn-block">Create</button>
                     </div>
                 </form>
             </div>

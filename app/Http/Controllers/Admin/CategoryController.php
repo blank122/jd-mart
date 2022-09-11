@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\AddCategoryFormRequest;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Filesystem\Filesystem;
+use App\Http\Requests\AddCategoryFormRequest;
+
 
 class CategoryController extends Controller
 {
@@ -26,26 +28,22 @@ class CategoryController extends Controller
     {
         $dataValidated = $request->validated();
 
-        //create new object for category controller
-        $categoryController = new Category; //same na silag porma sa api
-        $categoryController->name = $dataValidated['name'];
-        $categoryController->slug = Str::slug($dataValidated['slug']);
-        $categoryController->product_description = $dataValidated['product_description'];
+        //create new object for category model
+        $category = new Category; //same na silag porma sa api
+        $category->name = $dataValidated['name'];
+        $category->slug = Str::slug($dataValidated['slug']);
+        $category->product_description = $dataValidated['product_description'];
 
         if ($request->hasFile('image')) { //process the image in order to store it into the database
             $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension(); //get the user file extension
+            $filename = time().'.'.$ext; //create new file name
 
-            $file_extension = $file->getClientOriginalExtension(); //get the user file extension
-            $filename = time() . '.' . $file_extension; //create new file name
-
-            $file->move('uploads/category/', $filename); //store the image into uploads folder
-
-            $categoryController->image = $filename;
+            $file->move('uploads/category/',$filename); //store the image into uploads folder
+            $category->image = $filename;
         }
-        $categoryController->image = $dataValidated['image'];
-
-        $categoryController->status = $request->status == true ? '1' : '0';
-        $categoryController->save(); //save the process
+        $category->status = $request->status == true ? '1' : '0';
+        $category->save(); //save the process
 
         return redirect('admin/category')->with('message', 'Category Added Successfully');
     }
@@ -54,4 +52,30 @@ class CategoryController extends Controller
     {
         return view('admin.category.edit', compact('category'));
     }
-}
+
+    public function update(AddCategoryFormRequest $request, $category)
+    {
+        $dataValidated = $request->validated();
+
+        $category = Category::findOrFail($category);
+
+        //create new object for category model
+        $category->name = $dataValidated['name'];
+        $category->slug = Str::slug($dataValidated['slug']);
+        $category->product_description = $dataValidated['product_description'];
+
+        if ($request->hasFile('image')) { //process the image in order to store it into the database
+            
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension(); //get the user file extension
+            $filename = time().'.'.$ext; //create new file name
+
+            $file->move('uploads/category/',$filename); //store the image into uploads folder
+            $category->image = $filename;
+        }
+        $category->status = $request->status == true ? '1' : '0';
+        $category->update(); //update the process
+
+        return redirect('admin/category')->with('message', 'Category Updated Successfully');
+    }
+} 

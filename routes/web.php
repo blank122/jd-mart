@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Admin\CategoryController;
 
 
 /*
@@ -28,11 +27,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
     //category controller group by function
-    Route::controller(CategoryController::class)->group(function () {
+    Route::controller(App\Http\Controllers\Admin\CategoryController::class)->group(function () {
         Route::get('/category', 'index');
         Route::get('/category/create', 'create');
         Route::post('/category', 'store');
         Route::get('/category/{category}/edit', 'edit');
+        Route::put('/category/{category}', 'update');
 
     });
 
