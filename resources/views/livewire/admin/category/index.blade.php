@@ -31,8 +31,8 @@
                             <td>{{ $category_item->name }}</td>
                             <td>{{ $category_item->status == '1' ? 'Hidden' : 'Visible' }}</td>
                             <td>
-                                <a href="" class="btn btn-success">Edit</a>
-                                <a href="" class="btn btn-danger">Delete</a>
+                                <a href="{{ url('admin/category/'.$category_item->id.'/edit ') }}" class="btn btn-success my-sm-2" >Edit</a>
+                                <a href="" class="btn btn-danger my-sm-2" >Delete</a>
                             </td>
                         </tr>
                     @endforeach
