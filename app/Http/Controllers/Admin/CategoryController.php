@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddCategoryFormRequest;
 
 
@@ -66,6 +66,11 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) { //process the image in order to store it into the database
             
+            $path = 'uploads/category/'.$category->image;
+            if(File::exists($path)){
+                File::delete($path);
+            }
+
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension(); //get the user file extension
             $filename = time().'.'.$ext; //create new file name
