@@ -4,8 +4,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-header">
-                <h3 class="text-success">Add New Categories
-                    <a href="{{ url('admin/category/') }}" class="btn btn-success btn-sm float-end">Back</a>
+                <h3 class="text-primary">Add New Categories
+                    <a href="{{ url('admin/category/') }}" class="btn btn-outline-danger btn-sm float-end">Back</a>
                     {{-- Revert category --}}
                 </h3>
             </div>
