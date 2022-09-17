@@ -27,7 +27,7 @@ class Index extends Component
     {
        $brand = Brand::find($this->brand_id); //will search the id of categories from the database
        $brand->delete();
-       session()->flash('message', 'Category Deleted');
+       session()->flash('message', 'Brand Deleted');
        $this->dispatchBrowserEvent('close-modal');
     }
 

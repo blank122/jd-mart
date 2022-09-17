@@ -11,7 +11,7 @@
                 </h3>
             </div>
             <div class="card-body bg-gray">
-                <form action="{{ url('admin/brands/').$brand->id }}" method="POST">
+                <form action="{{ url('admin/brands/').$branding->id }}" method="POST">
                     @csrf
                     @method('PUT')<!--Update the data into the database-->
                     <div class="border border-primary p-5">
@@ -19,7 +19,7 @@
                             <div class="col-md-6 mb-3 ">
                                 <div class="form-outline">
                                     <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $brand->name }}"/>
+                                    <input type="text" name="name" class="form-control" value="{{ $branding->name }}"/>
                                     @error('name')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6 mb-3 ">
                                 <label class="form-label">Slug</label>
-                                <input type="text" name="slug" class="form-control" value="{{ $brand->slug }}"/>
+                                <input type="text" name="slug" class="form-control" value="{{ $branding->slug }}"/>
                                 @error('slug')
                                     <small class= "text-danger">{{ $message }}</small>
                                 @enderror

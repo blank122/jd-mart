@@ -26,32 +26,35 @@ class BrandController extends Controller
         $dataValidated = $request->validated();
 
         //create new object for category model
-        $brand = new Brand; //same na silag porma sa api
-        $brand->name = $dataValidated['name'];
-        $brand->slug = Str::slug($dataValidated['slug']);
+        $branding = new Brand; //same na silag porma sa api
+        $branding->name = $dataValidated['name'];
+        $branding->slug = Str::slug($dataValidated['slug']);
 
         
-        $brand->status = $request->status == true ? '1' : '0';
-        $brand->save(); //save the process
+        $branding->status = $request->status == true ? '1' : '0';
+        $branding->save(); //save the process
         
         return redirect('admin/brands')->with('message', 'Brand Added Successfully');
     }
 
-    public function edit(Brand $brand)
+    public function edit(Brand $branding)
     {
-        return view('admin.brand.edit', compact('brand'));
+        return view('admin.brand.edit', compact('branding'));
     }
 
-    public function update(AddBrandRequest $request, $brand)
+    public function brandUpdate(AddBrandRequest $request, $branding)
     {
-        $dataValidation = $request->validated();
+        $dataValidated = $request->validated();
 
-        $brand = Brand::findOrFail($brand);
+        //create new object for category model
+        $brand = Brand::findOrFail($branding); //same na silag porma sa api
 
-        $brand->name = $dataValidation['name'];
-        $brand->slug = Str::slug($dataValidation['slug']);
+        $brand->name = $dataValidated['name'];
+        $brand->slug = Str::slug($dataValidated['slug']);
+
         $brand->status = $request->status == true ? '1' : '0';
-        $brand->update();
+        $brand->update(); //save the process
+        
         return redirect('admin/brands')->with('message', 'Brand Updated Successfully');
         
     }
