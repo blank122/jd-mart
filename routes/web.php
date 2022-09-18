@@ -35,5 +35,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::put('/category/{category}', 'update');
     });
 
+    Route::controller(App\Http\Controllers\Admin\ProductBrandController::class)->group(function () {
+        Route::get('/product-brand', 'index');
+        Route::get('/product-brand/create', 'create');
+        Route::post('/product-brand', 'store');
+        Route::get('/product-brand/{product_brand}/edit', 'edit');
+        Route::put('/product-brand/{product_brand}', 'update');
+    });
 
 });

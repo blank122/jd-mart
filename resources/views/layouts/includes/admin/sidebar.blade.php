@@ -27,7 +27,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="{{url('admin/product-brand/')}}">
               <i class="mdi mdi-format-list-bulleted-type menu-icon"></i>
               <span class="menu-title">Brands</span>
             </a>
